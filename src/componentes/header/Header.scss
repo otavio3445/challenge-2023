@@ -1,0 +1,21 @@
+@import '../../variables.scss';
+
+.header-main {
+    height: 3rem;
+    background-color: $black;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.homeButton {
+    position: absolute;
+    left: 15px;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.8;
+    }
+}

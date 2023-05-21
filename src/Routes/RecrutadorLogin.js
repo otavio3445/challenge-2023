@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.scss';
+import '../App.scss';
 import Particles from 'react-tsparticles';
 import { loadFull } from "tsparticles";
-import { particlesConf } from './assets/particlesConfig';
+import { particlesConf } from '../assets/particlesConfig';
 
-function App() {
+function RecrutadorLogin() {
 
   const particlesInit = async (main) => {
     await loadFull(main);
@@ -15,9 +15,9 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="RecrutadorLogin">
       <div className='logoEY'>
-        <img alt='logo' width='125px' src={require('./assets/logo-ey-black.png')} />
+        <img alt='logo' width='125px' src={require('../assets/logo-ey-black.png')} />
       </div>
       <Particles
         id="tsparticles"
@@ -29,7 +29,7 @@ function App() {
         <h1 className='title-ey'>Bem Vindo a plataforma de recrutamento e seleção do EY Institute</h1>
         <div className="login">
           <input className='ey-input' type="text" name="cpf" id="cpf" placeholder='Digite seu CPF' />
-          <button className='ey-button' onClick={() => window.location.href = "/cadastrarCandidato"}>Entrar na Plataforma</button>
+          <button className='ey-button' onClick={() => window.location.href = "/gestaoDeCandidatos"}>Entrar na Plataforma</button>
         </div>
 
         <p className="disclaimer">
@@ -41,4 +41,4 @@ function App() {
   );
 }
 
-export default App;
+export default RecrutadorLogin;

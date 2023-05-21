@@ -1,0 +1,81 @@
+@import './variables.scss';
+
+.adjustParticles {
+  position: relative;
+  z-index: 10;
+  min-height: 80vh;
+}
+
+.logoEY {
+  position: relative;
+  z-index: 10;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.title-ey {
+  color: $white;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 5rem 0 2rem 0;
+}
+
+.login {
+  margin: 0 auto;
+  width:  30vw;
+  text-align: center;
+}
+
+.disclaimer {
+  color: $white;
+  font-size: 16px;
+  position: absolute;
+  bottom: 0;
+  left: 2rem;
+  width: 40%;
+}
+
+.inputContainer {
+  margin: 1% 0;
+  width: 40vw;
+  text-align: left;
+  color: $white;
+  font-size: 16px;
+  margin-left: 3%;
+  display: flex;
+  & .subContainer {
+    width: 50%;
+  }
+}
+
+.instituteInfos {
+  position: absolute;
+  color: $white;
+  font-size: 20px;
+  left: 60%;
+  top: 0%;
+  & .small-font {
+    font-size: 15px;
+    margin: 0;
+  }
+  & .big-font {
+    margin: 0;
+    font-size: 40px;
+  }
+  
+}
+
+@media (max-width: 728px) {
+  .login {
+    width: 80%;
+  }
+  .inputContainer {
+    width: 100%;
+  }
+  .instituteInfos {
+    position: unset;
+    & div > div > img {
+      width: 45vw;
+    }
+  }
+}
