@@ -4,7 +4,7 @@ import Particles from 'react-tsparticles';
 import { loadFull } from "tsparticles";
 import { particlesConf } from '../assets/particlesConfig';
 import Header from '../componentes/header/Header';
-import { RadioGroup, RadioButton, ReversedRadioButton } from 'react-radio-buttons';
+import { RadioGroup, ReversedRadioButton } from 'react-radio-buttons';
 
 function CadastroCandidato() {
     const particlesInit = async (main) => {
