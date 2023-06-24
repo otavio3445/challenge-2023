@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import RecrutadorLogin from './Routes/RecrutadorLogin';
 import CadastroCandidato from './Routes/CadastroCandidato';
+import MainCandidato from './Routes/MainCandidato';
 
 
 const router = createBrowserRouter([
@@ -19,6 +20,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/cadastrarCandidato",
+    element: <CadastroCandidato />
+  },
+  {
+    path: "/candidato/main",
+    element: <MainCandidato />
+  },
+  {
+    path: "/candidato",
     element: <CadastroCandidato />
   }
 ]);

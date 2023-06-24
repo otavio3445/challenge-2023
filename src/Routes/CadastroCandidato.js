@@ -145,7 +145,7 @@ function CadastroCandidato() {
                     </div>
                 </div>
                 <div className="login">
-                    <button className='ey-button' onClick={() => window.location.href = "/gestaoDeCandidatos"}>Enviar Inscrição</button>
+                    <button className='ey-button' onClick={() => window.location.href = "/candidato/main"}>Enviar Inscrição</button>
                 </div>
                 <div className="instituteInfos">
                     <p>Conheça mais sobre o EY Institute</p>

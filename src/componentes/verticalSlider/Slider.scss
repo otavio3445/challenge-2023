@@ -1,0 +1,165 @@
+@import '../../variables.scss';
+
+.verticalContainer {
+    position: relative;
+    overflow-y: hidden;
+    &-view {
+        height: 90vh;
+    }
+}
+
+.sliderCard {
+    width: 100%;
+    height: 22vh;
+    color: $white;
+    background-color: $black;
+    border: 3px solid $yellow;
+    box-sizing: border-box;
+    &-title {
+        color: $yellow;
+        font-size: 24px;
+        text-align: center;
+        font-weight: bold;
+    }
+    &-title-sub {
+        color: $white;
+        font-size: 20px;
+        text-align: center;
+        margin: 3% 0;
+    }
+    &-btn {
+        background-color: $yellow;
+        cursor: pointer;
+        color: $black;
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+        height: 30%;
+        line-height: 3rem;
+        border-radius: 10px;
+        &:hover {
+            background-color: $yellow-light;
+        }
+    }
+}
+
+
+.outer-container {
+    max-width: 40vw;
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .outer-container > div {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .outer-container .carousel-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .outer-container .carousel-wrapper p,
+  
+  .outer-container .content {
+    background: var(--white);
+  }
+  
+  .leading-text {
+    // display: flex;
+    align-items: center;
+    // height: 100%;
+    // margin-right: 6px;
+  }
+  
+  .carousel {
+    height: 100%;
+    display: flex;
+    flex: 5;
+    align-items: center;
+    color: var(--white);
+  }
+  
+  .carousel-button {
+    align-self: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .carousel-button svg {
+    height: 26px;
+    width: 26px;
+  }
+  .carousel-button path {
+    fill: var(--black);
+  }
+  
+  .slides {
+    align-self: flex-start;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .carousel-inner {
+    position: relative;
+    max-height: 78vh;
+    height: 78vh;
+    width: 25vw;
+    margin: 0 auto;
+  }
+  
+  .carousel-inner::before,
+  .carousel-inner::after {
+    content: "";
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 110px;
+    pointer-events: none;
+  }
+  
+  .carousel-inner::before {
+    top: 0;
+  }
+  
+  .carousel-inner::after {
+    bottom: 0;
+  }
+  
+  .carousel-item {
+    position: absolute;
+    top: 40%;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+  
+  .carousel-item.visible {
+    opacity: 1;
+  }
+  
+
+  .arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    
+    border-bottom: 20px solid $gray;
+    &:hover {
+        border-bottom: 20px solid $gray-light;
+    }
+}
+  
+  .arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    
+    border-top: 20px solid $gray;
+    &:hover {
+        border-top: 20px solid $gray-light;
+    }
+}
