@@ -7,6 +7,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import RecrutadorLogin from './Routes/RecrutadorLogin';
 import CadastroCandidato from './Routes/CadastroCandidato';
 import MainCandidato from './Routes/MainCandidato';
+import EditarCandidato from './Routes/EditarCandidato';
+import CandidatarVaga from './Routes/CandidatarVaga';
+import UnderReview from './Routes/UnderReview';
 
 
 const router = createBrowserRouter([
@@ -29,7 +32,19 @@ const router = createBrowserRouter([
   {
     path: "/candidato",
     element: <CadastroCandidato />
-  }
+  },
+  {
+    path: "/candidato/editar",
+    element: <EditarCandidato />
+  },
+  {
+    path: "/candidato/vaga",
+    element: <CandidatarVaga />
+  },
+  {
+    path: "/underReview",
+    element: <UnderReview />
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
