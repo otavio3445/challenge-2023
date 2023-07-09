@@ -1,0 +1,45 @@
+@import '../../variables.scss';
+
+.tableContainer {
+    overflow-y: visible;
+    min-height: 75vh;
+}
+
+.dataTable {
+    width: 90vw;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+.linha {
+    &-1 {
+        background-color: #828282;
+    }
+
+    &-0 {
+        background-color: #a9a9a9;
+    }
+}
+
+.linha-1,
+.linha-0 {
+    & td {
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+        border: none;
+        padding: 1rem;
+        box-sizing: border-box;
+        font-family: sans-serif;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+.dtHeader {
+    background-color: $yellow;
+    border: none;
+    padding: 1rem;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}

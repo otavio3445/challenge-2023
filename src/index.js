@@ -10,6 +10,11 @@ import MainCandidato from './Routes/MainCandidato';
 import EditarCandidato from './Routes/EditarCandidato';
 import CandidatarVaga from './Routes/CandidatarVaga';
 import UnderReview from './Routes/UnderReview';
+import MainRecrutador from './Routes/MainRecrutador';
+import AprovarCandidaturas from './Routes/AprovarCandidaturas';
+import DetalhesAprovar from './Routes/DetalhesAprovar';
+import PreencherVagas from './Routes/PreencherVagas';
+import DetalhesVaga from './Routes/DetalhesVaga';
 
 
 const router = createBrowserRouter([
@@ -44,6 +49,26 @@ const router = createBrowserRouter([
   {
     path: "/underReview",
     element: <UnderReview />
+  },
+  {
+    path: "/recrutador/main",
+    element: <MainRecrutador />
+  },
+  {
+    path: "/recrutador/vagas",
+    element: <PreencherVagas />
+  },
+  {
+    path: "/recrutador/vagas/detalhes",
+    element: <DetalhesVaga />
+  },
+  {
+    path: "/recrutador/aprovar",
+    element: <AprovarCandidaturas />
+  },
+  {
+    path: "/recrutador/aprovar/detalhes",
+    element: <DetalhesAprovar />
   },
 ]);
 

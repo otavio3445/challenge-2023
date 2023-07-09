@@ -13,6 +13,11 @@
   width: fit-content;
 }
 
+.title {
+  color: $white;
+  padding: 1rem 2rem;
+}
+
 .title-ey {
   color: $white;
   width: fit-content;
@@ -90,7 +95,13 @@
   margin: 2rem 0;
 }
 
-.sendApply {
+.detalheCandidato {
+  font-size: 15px;
+  color: $white;
+  margin: 2rem 0;
+}
+
+.sendApply, .sendDenny, .btnEncerrar {
   margin-top: 3rem;
   padding: 1rem 2rem;
   border-radius: 10px;
@@ -99,11 +110,22 @@
   width: 50%;
   font-weight: bold;
   background-color: $green;
+  max-width: 150px;
   cursor: pointer;
 
   &:hover {
     background-color: $green-dark;
   }
+}
+
+.sendDenny, .btnEncerrar {
+  background-color: $red;
+}
+
+.btnEncerrar {
+  position: absolute;
+  bottom: 0;
+  right: 2%;
 }
 
 .disclaimerReview {
@@ -113,6 +135,107 @@
   left: 10%;
   color: $white;
   font-size: 20px;
+}
+
+.reset {
+  &-position {
+    position: initial;
+  }
+  &-margin {
+    margin: 0;
+  }
+  &-padding {
+    padding: 0;
+  }
+}
+
+.sub35 {
+  max-width: 35Vw;
+}
+
+.sub65 {
+  min-width: 50vw;
+  max-width: 65Vw;
+}
+
+.sub50{
+  min-width: 40vw;
+  max-width: 50Vw;
+}
+
+.btnRecrutadorHolder {
+  position: relative;
+  height: 60vh;
+}
+
+.btnRecrutadorUp {
+  position: absolute;
+}
+
+.btnRecrutadorDown {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.btnRecrutador {
+  background-color: $yellow;
+  border-radius: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 7rem 3rem;
+  max-width: 12rem;
+  max-height: 12rem;
+  transition: all ease .5s;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $yellow-light;
+    scale: 1.1;
+  }
+}
+
+.programCard {
+  width: 200px;
+  height: 100px;
+  background-color: #393939;
+  color: $white;
+  text-align: center;
+  border: 2px solid $white;
+}
+
+.checkBoxEy {
+  background-color: $yellow;
+  width: 35px;
+  height: 35px;
+  margin: 0 auto;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.75);
+  &-container {
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    width: 30rem;
+  }
+  &-ta {
+    width: 95%;
+    height: 10rem;
+    margin-bottom: 1rem;
+    resize: none;
+    background-color: $gray-light;
+    font-size: 15px;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
 }
 
 @media (max-width: 728px) {
