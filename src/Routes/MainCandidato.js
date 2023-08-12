@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../App.scss';
 import Particles from 'react-tsparticles';
 import { loadFull } from "tsparticles";
 import { particlesConf } from '../assets/particlesConfig';
 import Header from '../componentes/header/Header';
 import Slider from '../componentes/verticalSlider/Slider';
+import { useLocation } from "react-router-dom";
 
 function MainCandidato() {
+
+    const location = useLocation();
 
     const particlesInit = async (main) => {
         await loadFull(main);
@@ -15,6 +18,11 @@ function MainCandidato() {
     const particlesLoaded = (container) => {
         console.log('container ok');
     };
+
+    useEffect(() => {
+      console.log(location.state.cpf)
+    }, [])
+    
 
     return (
         <div className="MainCandidato">
