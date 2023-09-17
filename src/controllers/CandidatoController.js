@@ -13,7 +13,7 @@ exports.listCandidatos = async (req, res) => {
 exports.verifyCandidato = async (req, res) => {
     try {
         const { cpf } = req.body;
-        const candidatos = await Candidato.countDocuments({ cpf });
+        const candidatos = await Candidato.countDocuments({ cpf, active: true });
         res.json(candidatos);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao procurar candidato candidato' });

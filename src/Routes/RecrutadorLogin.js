@@ -17,7 +17,7 @@ function RecrutadorLogin() {
   return (
     <div className="RecrutadorLogin">
       <div className='logoEY'>
-        <img alt='logo' width='125px' src={require('../assets/logo-ey-black.png')} />
+        {/* <img alt='logo' width='125px' src={require('../assets/logo-ey-black.png')} /> */}
       </div>
       <Particles
         id="tsparticles"

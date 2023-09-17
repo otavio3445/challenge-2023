@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.scss';
 import Particles from 'react-tsparticles';
 import { loadFull } from "tsparticles";
 import { particlesConf } from '../assets/particlesConfig';
 import Header from '../componentes/header/Header';
 import Slider from '../componentes/verticalSlider/Slider';
-import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from 'axios';
 
 function MainCandidato() {
-
-    const location = useLocation();
 
     const particlesInit = async (main) => {
         await loadFull(main);
@@ -19,14 +18,23 @@ function MainCandidato() {
         console.log('container ok');
     };
 
+    const [vagas, setvagas] = useState([]);
+
     useEffect(() => {
-      console.log(location.state.cpf)
+        const getVagas = async () => {
+            const res = await axios.get('/vagas/listVagas');
+            if (res && res.data) {
+                setvagas(res.data)
+            } else {
+                console.log(res)
+            }
+        }
+        getVagas();
     }, [])
-    
 
     return (
         <div className="MainCandidato">
-            <Header rota="cadastrarCandidato" />
+            <Header rota="candidato" />
             <Particles
                 id="tsparticles"
                 init={particlesInit}
@@ -34,8 +42,8 @@ function MainCandidato() {
                 options={particlesConf}
             />
             <div className='adjustParticles'>
-
-                <Slider/>
+                <Link to="/candidato/vaga">aaa</Link>
+                {/* <Slider vagas={vagas} external={false}/> */}
 
                 <div className="instituteInfos">
                     <p>Conheça mais sobre o EY Institute</p>

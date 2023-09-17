@@ -19,7 +19,7 @@ function DetalhesVaga() {
 
     return (
         <div>
-            <Header rota="cadastrarCandidato" />
+            <Header rota="candidato" />
             <Particles
                 id="tsparticles"
                 init={particlesInit}

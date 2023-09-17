@@ -1,75 +1,35 @@
-import React, { useState } from 'react';
-import './App.scss';
-import Particles from 'react-tsparticles';
-import { loadFull } from "tsparticles";
-import { particlesConf } from './assets/particlesConfig';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React from 'react';
+import { Route, Switch } from "react-router-dom";
+import CandidatoLogin from './Routes/CandidatoLogin';
+import CadastroCandidato from './Routes/CadastroCandidato';
+import MainCandidato from './Routes/MainCandidato';
+import CandidatarVaga from './Routes/CandidatarVaga';
+import EditarCandidato from './Routes/EditarCandidato';
+import RecrutadorLogin from './Routes/RecrutadorLogin';
+import PreencherVagas from './Routes/PreencherVagas';
+import DetalhesVaga from './Routes/DetalhesVaga';
+import AprovarCandidaturas from './Routes/AprovarCandidaturas';
+import DetalhesAprovar from './Routes/DetalhesAprovar';
+import UnderReview from './Routes/UnderReview';
 
 function App() {
-
-  const history = useNavigate();
-  const particlesInit = async (main) => {
-    await loadFull(main);
-  };
-
-  const particlesLoaded = (container) => {
-    console.log('container ok');
-  };
-
-  const [cpf, setcpf] = useState("");
-
-  const handleButtonClick = async () => {
-    try {
-      let res = await axios.post('/candidatos/verifyCandidato', {
-        headers: {
-          'Accept': 'application/json',
-        },
-        cpf
-      });
-      if (res && res.data) {
-        if (res.data > 0) {
-          history('/candidato/main', {
-            state: {
-              cpf: cpf
-            }
-          });
-        } else {
-          history('/cadastrarCandidato');
-        }
-      }
-    } catch (error) {
-      console.error('Erro ao contar candidatos:', error);
-    }
-  };
-
   return (
-    <div className="App">
-      <div className='logoEY'>
-        <img alt='logo' width='125px' src={require('./assets/logo-ey-black.png')} />
-      </div>
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        loaded={particlesLoaded}
-        options={particlesConf}
-      />
-      <div className='adjustParticles'>
-        <h1 className='title-ey'>Bem Vindo a plataforma de recrutamento e seleção do EY Institute</h1>
-        <div className="login">
-          <input className='ey-input' autocomplete="off" type="text" name="cpf" id="cpf" placeholder='Digite seu CPF' onChange={(e) => {
-            setcpf(e.target.value)
-          }} />
-          <button className='ey-button' onClick={handleButtonClick}>Entrar na Plataforma</button>
-        </div>
-
-        <p className="disclaimer">
-          Atenção, esta plataforma é destinada para recrutamento e seleção de candidatos em vulnerabilidade social. Destinada a direcionálos a programas do EY Institute ou em caso de conclusão de algum programa, ao recrutamento da EY
-        </p>
-
-      </div>
+    <div>
+      <Switch>
+        <Route exact path="/"><CandidatoLogin /></Route>
+        <Route exact path="/recrutador"><RecrutadorLogin /></Route>
+        <Route exact path="/recrutador/aprovar"><AprovarCandidaturas /></Route>
+        <Route exact path="/recrutador/aprovar/detalhes"><DetalhesAprovar /></Route>
+        <Route exact path="/recrutador/vaga"><PreencherVagas /></Route>
+        <Route exact path="/recrutador/vaga/detalhes"><DetalhesVaga /></Route>
+        <Route exact path="/candidato"><CadastroCandidato /></Route>
+        <Route exact path="/candidato/main"><MainCandidato /></Route>
+        <Route exact path="/candidato/vaga"><CandidatarVaga /></Route>
+        <Route exact path="/candidato/editar"><EditarCandidato /></Route>
+        <Route exact path="/review"><UnderReview /></Route>
+      </Switch>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

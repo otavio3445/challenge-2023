@@ -14,9 +14,10 @@ const CandidatoSchema = new mongoose.Schema({
     genero: String,
     lgbt: Boolean,
     pcd: Boolean,
-    povos: String,
+    povos: Boolean,
     etinia: String,
-    renda: String
+    renda: String,
+    active: Boolean,
 });
 
 module.exports = mongoose.model('candidato', CandidatoSchema);

@@ -1,43 +1,11 @@
 import React, { useState } from 'react';
 import './Slider.scss';
-import cn from "classnames"
-import {
-    BiUpArrow as Prev,
-    BiDownArrow as Next
-} from 'react-icons/bi';
+import cn from "classnames";
+import { useHistory, Redirect } from 'react-router-dom';
 
-function Slider() {
+function Slider({ vagas: data, external }) {
 
-    const data = [
-        {
-            id: 0,
-        },
-        {
-            id: 1,
-        },
-        {
-            id: 2,
-        },
-        {
-            id: 3,
-        },
-        {
-            id: 4,
-        },
-        {
-            id: 5,
-        },
-        {
-            id: 6,
-        },
-        {
-            id: 7,
-        },
-        {
-            id: 8,
-        }
-    ]
-
+    const history = useHistory();
     const [activeIndex, setActiveIndex] = useState(0);
 
     // Used to determine which items appear above the active item
@@ -93,8 +61,13 @@ function Slider() {
         });
     };
 
+    const handleVagaClick = async () => {
+        history.push("/candidato/vaga")
+    }
+
     return (
         <div className="container">
+            <button onClick={handleVagaClick}>aaa</button>
             <section className="outer-container">
                 <div className="carousel-wrapper">
                     <button
@@ -120,9 +93,9 @@ function Slider() {
                                             transform: `translateY(${determinePlacement(i)}px)`
                                         }}
                                     >
-                                        <div className="sliderCard-title">Titulo {i}</div>
-                                        <div className="sliderCard-title-sub">Sub titulo {i}</div>
-                                        <div className="sliderCard-btn">Ver Mais</div>
+                                        <div className="sliderCard-title">{item.titulo}</div>
+                                        <div className="sliderCard-title-sub">Nível: {item.level}, {item.local}</div>
+                                        <div className="sliderCard-btn" onClick={handleVagaClick}>Ver Mais</div>
                                     </div>
                                 ))}
                             </div>

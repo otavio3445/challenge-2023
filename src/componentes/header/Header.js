@@ -8,7 +8,7 @@ const Header = ({ rota }) => {
             <div className='homeButton'>
                 <AiFillHome color='#fff' size='35px' />
             </div>
-            <img alt='logo' width='45px' src={require('../../assets/logo-ey-black.png')} />
+            {/* <img alt='logo' width='45px' src={require('../../assets/logo-ey-black.png')} /> */}
         </div>
     )
 }

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.scss';
 import Particles from 'react-tsparticles';
 import { loadFull } from "tsparticles";
 import { particlesConf } from '../assets/particlesConfig';
 import Header from '../componentes/header/Header';
+import { useLocation } from 'react-router';
 
 function CandidatarVaga() {
+
+    const location = useLocation();
+
+    const [vaga, setvaga] = useState({})
+
     const particlesInit = async (main) => {
         await loadFull(main);
     };
@@ -14,9 +20,14 @@ function CandidatarVaga() {
         console.log('container ok');
     };
 
+    useEffect(() => {
+        console.log(location)
+    }, [])
+    
+
     return (
         <div>
-            <Header rota="cadastrarCandidato" />
+            <Header rota="candidato" />
             <Particles
                 id="tsparticles"
                 init={particlesInit}
@@ -24,31 +35,6 @@ function CandidatarVaga() {
                 options={particlesConf}
             />
 
-            <div className='adjustParticles'>
-                <div className="divideContainer">
-                    <div className="divideContainer-sub">
-                        <h3 className="detalheVaga">Vaga:</h3>
-                        <br />
-                        <br />
-                        <h3 className="detalheVaga">Detalhes da Vaga:</h3>
-                        <h3 className="detalheVaga">Level:</h3>
-                        <h3 className="detalheVaga">Publicação:</h3>
-                        <h3 className="detalheVaga">Local:</h3>
-                        <h3 className="detalheVaga">Salário:</h3>
-                        <h3 className="detalheVaga">Setor:</h3>
-                        <h3 className="detalheVaga">ID:</h3>
-                    </div>
-                    <div className="divideContainer-sub">
-                        <div className="divideContainer-sub-center">
-                            <div>
-                                <p>Seu currículo: </p>
-                                <input type="file" name="cv" id="cv" />
-                                <div className="sendApply">Se Candidatar</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     )
 }

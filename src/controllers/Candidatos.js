@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const candidatosController = require('../controllers/CandidatoController');
+const candidatosController = require('./CandidatoController');
 
-router.get('/', candidatosController.listCandidatos);
-// router.post('/', candidatosController.addCandidato);
+router.get('/listCandidatos', candidatosController.listCandidatos);
+router.post('/add/candidato', candidatosController.addCandidato);
 // router.put('/:cpf', candidatosController.updateCandidato);
 // router.delete('/:cpf', candidatosController.deleteCandidato);
 

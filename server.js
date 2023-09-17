@@ -3,7 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const db = require('./src/models/dataBase');
-const candidatoRoutes = require('./src/Routes/Candidatos');
+const candidatoRoutes = require('./src/controllers/Candidatos');
+const vagasRoutes = require('./src/controllers/Vagas');
 const fallback = require('./node_modules/express-history-api-fallback');
 
 require('dotenv').config();
@@ -23,6 +24,7 @@ db.connectDB();
 app.use(express.static(root));
 
 app.use('/candidatos', candidatoRoutes);
+app.use('/vagas', vagasRoutes);
 
 // Serve react main aplication
 app.get('/', (req, res) => {
