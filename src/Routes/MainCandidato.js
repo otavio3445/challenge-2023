@@ -5,7 +5,6 @@ import { loadFull } from "tsparticles";
 import { particlesConf } from '../assets/particlesConfig';
 import Header from '../componentes/header/Header';
 import Slider from '../componentes/verticalSlider/Slider';
-import { Link } from "react-router-dom";
 import axios from 'axios';
 
 function MainCandidato() {
@@ -34,7 +33,7 @@ function MainCandidato() {
 
     return (
         <div className="MainCandidato">
-            <Header rota="candidato" />
+            <Header rota="/candidato/main" />
             <Particles
                 id="tsparticles"
                 init={particlesInit}
@@ -42,11 +41,10 @@ function MainCandidato() {
                 options={particlesConf}
             />
             <div className='adjustParticles'>
-                <Link to="/candidato/vaga">aaa</Link>
-                {/* <Slider vagas={vagas} external={false}/> */}
+                <Slider vagas={vagas} external={false}/>
 
                 <div className="instituteInfos">
-                    <p>Conheça mais sobre o EY Institute</p>
+                    <p>Conheça mais sobre o programa</p>
                     <br />
                     <p className="small-font">Mais de</p>
                     <p className="big-font">5600</p>

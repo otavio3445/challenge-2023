@@ -5,12 +5,12 @@ import { loadFull } from "tsparticles";
 import { particlesConf } from '../assets/particlesConfig';
 import Header from '../componentes/header/Header';
 import { RadioGroup, ReversedRadioButton } from 'react-radio-buttons';
-// import { Outlet, useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 function CadastroCandidato() {
 
-    // const history = useNavigate();
+    const history = useHistory();
     const particlesInit = async (main) => {
         await loadFull(main);
     };
@@ -52,7 +52,7 @@ function CadastroCandidato() {
 
     return (
         <div>
-            <Header rota="candidato" />
+            <Header rota="/candidato" />
             <Particles
                 id="tsparticles"
                 init={particlesInit}
@@ -137,10 +137,10 @@ function CadastroCandidato() {
                                 setLgbt(true)
                             }
                         }}>
-                            <ReversedRadioButton value="sim" pointColor="#F8D000" >
+                            <ReversedRadioButton value="sim" pointColor="#2ECA72" >
                                 Sim
                             </ReversedRadioButton>
-                            <ReversedRadioButton value="nao" pointColor="#F8D000" >
+                            <ReversedRadioButton value="nao" pointColor="#2ECA72" >
                                 Não
                             </ReversedRadioButton>
                         </RadioGroup>
@@ -157,10 +157,10 @@ function CadastroCandidato() {
                                 setPcd(true)
                             }
                         }}>
-                            <ReversedRadioButton value="sim" pointColor="#F8D000">
+                            <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                 Sim
                             </ReversedRadioButton>
-                            <ReversedRadioButton value="nao" pointColor="#F8D000" >
+                            <ReversedRadioButton value="nao" pointColor="#2ECA72" >
                                 Não
                             </ReversedRadioButton>
                         </RadioGroup>
@@ -176,10 +176,10 @@ function CadastroCandidato() {
                                 setPovos(true)
                             }
                         }}>
-                            <ReversedRadioButton value="sim" pointColor="#F8D000">
+                            <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                 Sim
                             </ReversedRadioButton>
-                            <ReversedRadioButton value="nao" pointColor="#F8D000" >
+                            <ReversedRadioButton value="nao" pointColor="#2ECA72" >
                                 Não
                             </ReversedRadioButton>
                         </RadioGroup>
@@ -251,16 +251,14 @@ function CadastroCandidato() {
                         });
 
                         if (res && res.data) {
-                            // history('/underReview', {
-                            //     state: {
-                            //       nome
-                            //     }
-                            //   });
+                            history.push('/review', {
+                                nome: nome
+                            });
                         }
                     }}>Enviar Inscrição</button>
                 </div>
                 <div className="instituteInfos">
-                    <p>Conheça mais sobre o EY Institute</p>
+                    <p>Conheça mais sobre o programa</p>
                     <br />
                     <p className="small-font">Mais de</p>
                     <p className="big-font">5600</p>

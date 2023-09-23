@@ -93,10 +93,10 @@ function EditarCandidato() {
                             <div style={{ width: '100%' }}>
                                 <p>Parte da comunidade LGBTQIAP+?</p>
                                 <RadioGroup horizontal >
-                                    <ReversedRadioButton value="sim" pointColor="#F8D000">
+                                    <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                         Sim
                                     </ReversedRadioButton>
-                                    <ReversedRadioButton value="nao" pointColor="#F8D000" >
+                                    <ReversedRadioButton value="nao" pointColor="#2ECA72" >
                                         Não
                                     </ReversedRadioButton>
                                 </RadioGroup>
@@ -111,10 +111,10 @@ function EditarCandidato() {
                             <div style={{ width: '100%' }}>
                                 <p>Se enquadra como PCD?</p>
                                 <RadioGroup horizontal >
-                                    <ReversedRadioButton value="sim" pointColor="#F8D000">
+                                    <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                         Sim
                                     </ReversedRadioButton>
-                                    <ReversedRadioButton value="nao" pointColor="#F8D000" >
+                                    <ReversedRadioButton value="nao" pointColor="#2ECA72" >
                                         Não
                                     </ReversedRadioButton>
                                 </RadioGroup>
@@ -129,10 +129,10 @@ function EditarCandidato() {
                             <div style={{ width: '100%' }}>
                                 <p>Faz parte de algum povo originário?</p>
                                 <RadioGroup horizontal >
-                                    <ReversedRadioButton value="sim" pointColor="#F8D000">
+                                    <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                         Sim
                                     </ReversedRadioButton>
-                                    <ReversedRadioButton value="nao" pointColor="#F8D000" >
+                                    <ReversedRadioButton value="nao" pointColor="#2ECA72" >
                                         Não
                                     </ReversedRadioButton>
                                 </RadioGroup>

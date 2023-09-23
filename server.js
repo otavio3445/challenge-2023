@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const db = require('./src/models/dataBase');
 const candidatoRoutes = require('./src/controllers/Candidatos');
+const recrutadoresRoutes = require('./src/controllers/Recrutadores');
 const vagasRoutes = require('./src/controllers/Vagas');
 const fallback = require('./node_modules/express-history-api-fallback');
 
@@ -24,6 +25,7 @@ db.connectDB();
 app.use(express.static(root));
 
 app.use('/candidatos', candidatoRoutes);
+app.use('/recrutadores', recrutadoresRoutes);
 app.use('/vagas', vagasRoutes);
 
 // Serve react main aplication

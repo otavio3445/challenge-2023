@@ -3,12 +3,12 @@ import '../App.scss';
 import Particles from 'react-tsparticles';
 import { loadFull } from "tsparticles";
 import { particlesConf } from '../assets/particlesConfig';
-// import { Outlet, useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 function CandidatoLogin() {
 
-  // const history = useNavigate();
+  const history = useHistory();
   const particlesInit = async (main) => {
     await loadFull(main);
   };
@@ -27,16 +27,15 @@ function CandidatoLogin() {
         },
         cpf
       });
+      console.log(res)
       if (res && res.data) {
         if (res.data > 0) {
-          // history('/candidato/main', {
-          //   state: {
-          //     cpf: cpf
-          //   }
-          // });
-        } else {
-          // history('/candidato');
-        }
+          history.push('/candidato/main', {
+            cpf: cpf
+          });
+        } 
+      } else {
+        history.push('/candidato');
       }
     } catch (error) {
       console.error('Erro ao contar candidatos');
@@ -55,7 +54,7 @@ function CandidatoLogin() {
         options={particlesConf}
       />
       <div className='adjustParticles'>
-        <h1 className='title-ey'>Bem Vindo a plataforma de recrutamento e seleção do EY Institute</h1>
+        <h1 className='title-ey'>Bem Vindo a plataforma de recrutamento e seleção da Everymind</h1>
         <div className="login">
           <input className='ey-input' autocomplete="off" type="text" name="cpf" id="cpf" placeholder='Digite seu CPF' onChange={(e) => {
             setcpf(e.target.value)
@@ -64,7 +63,7 @@ function CandidatoLogin() {
         </div>
 
         <p className="disclaimer">
-          Atenção, esta plataforma é destinada para recrutamento e seleção de candidatos em vulnerabilidade social. Destinada a direcionálos a programas do EY Institute ou em caso de conclusão de algum programa, ao recrutamento da EY
+          Atenção, esta plataforma é destinada para recrutamento e seleção de candidatos em vulnerabilidade social. Destinada a direcioná-los a programas da Everymind ou em caso de conclusão de algum programa, ao recrutamento da Everymind
         </p>
 
       </div>

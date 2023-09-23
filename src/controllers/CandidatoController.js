@@ -3,7 +3,7 @@ const Candidato = require('../models/candidato');
 // Listar todos os candidatos
 exports.listCandidatos = async (req, res) => {
     try {
-        const candidatos = await Candidato.find({}).lean();
+        const candidatos = await Candidato.find({active: false, razaoReprovacao: ""}).lean();
         res.json(candidatos);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao listar candidatos' });
@@ -23,7 +23,7 @@ exports.verifyCandidato = async (req, res) => {
 // Adicionar um novo candidato
 exports.addCandidato = async (req, res) => {
     try {
-        const novoCandidato = await Candidato.create(req.body);
+        const novoCandidato = await Candidato.create(req.body.candidato);
         res.status(201).json(novoCandidato);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao adicionar candidato' });

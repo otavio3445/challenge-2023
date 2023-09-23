@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../App.scss';
 import Particles from 'react-tsparticles';
 import { loadFull } from "tsparticles";
 import { particlesConf } from '../assets/particlesConfig';
 import Header from '../componentes/header/Header';
 import { RadioGroup, ReversedRadioButton } from 'react-radio-buttons';
+import { useLocation } from 'react-router';
 
 function DetalhesVaga() {
+    const location = useLocation();
     const particlesInit = async (main) => {
         await loadFull(main);
     };
@@ -16,10 +18,17 @@ function DetalhesVaga() {
     };
 
     const [showModal, setshowModal] = useState(true);
+    const [vaga, setvaga] = useState(true);
+
+    useEffect(() => {
+      setvaga(location.state.vaga)
+      console.log(location)
+    }, [])
+    
 
     return (
         <div>
-            <Header rota="candidato" />
+            <Header rota="/recrutador/main" />
             <Particles
                 id="tsparticles"
                 init={particlesInit}
@@ -30,21 +39,21 @@ function DetalhesVaga() {
             <div className='adjustParticles'>
                 <div className="divideContainer">
                     <div className="sub50">
-                        <h3 className="title reset-padding" style={{ marginTop: '2rem' }}>Vaga:</h3>
+                        <h3 className="title reset-padding" style={{ marginTop: '2rem' }}>Vaga: {vaga.titulo}</h3>
                         <div className="detalheCandidato">Detalhes da vaga:</div>
-                        <div className="detalheCandidato">Level:</div>
-                        <div className="detalheCandidato">Publicação</div>
-                        <div className="detalheCandidato">Local:</div>
-                        <div className="detalheCandidato">Salário:</div>
-                        <div className="detalheCandidato">Responsável:</div>
-                        <div className="detalheCandidato">Setor:</div>
-                        <div className="detalheCandidato">ID:</div>
+                        <div className="detalheCandidato">Level: {vaga.level}</div>
+                        <div className="detalheCandidato">Publicação: {vaga.publicacao}</div>
+                        <div className="detalheCandidato">Local: {vaga.local}</div>
+                        <div className="detalheCandidato">Salário: {vaga.salario}</div>
+                        <div className="detalheCandidato">Responsável: {vaga.responsavel}</div>
+                        <div className="detalheCandidato">Setor: {vaga.setor}</div>
+                        <div className="detalheCandidato">ID: {vaga.idVaga}</div>
                         <br />
-                        <h3 className="title reset-padding reset-margin">Candidaturas externas:</h3>
+                        <h3 className="title reset-padding reset-margin">Candidaturas externas: {vaga.candidaturasExternas}</h3>
                         <button className="ey-button">Baixar CVs Externos</button>
                     </div>
                     <div className="sub50">
-                        <h3 className="title reset-padding" style={{ marginTop: '2rem' }}>Candidaturas EY Institute:</h3>
+                        <h3 className="title reset-padding" style={{ marginTop: '2rem' }}>Candidaturas Internas: {vaga.candidaturasInternas}</h3>
                         <br />
                         <div className="inputContainer">
                             <div className="subContainer">
@@ -61,10 +70,10 @@ function DetalhesVaga() {
                                 <div style={{ width: '100%' }}>
                                     <p>Parte da comunidade LGBTQIAP+?</p>
                                     <RadioGroup horizontal >
-                                        <ReversedRadioButton value="sim" pointColor="#F8D000">
+                                        <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                             Sim
                                         </ReversedRadioButton>
-                                        <ReversedRadioButton value="nao" pointColor="#F8D000" >
+                                        <ReversedRadioButton value="nao" pointColor="#2ECA72" >
                                             Não
                                         </ReversedRadioButton>
                                     </RadioGroup>
@@ -77,10 +86,10 @@ function DetalhesVaga() {
                                 <div style={{ width: '90%' }}>
                                     <p>Candidatos PCD?</p>
                                     <RadioGroup horizontal >
-                                        <ReversedRadioButton value="sim" pointColor="#F8D000">
+                                        <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                             Sim
                                         </ReversedRadioButton>
-                                        <ReversedRadioButton value="nao" pointColor="#F8D000" >
+                                        <ReversedRadioButton value="nao" pointColor="#2ECA72" >
                                             Não
                                         </ReversedRadioButton>
                                     </RadioGroup>
@@ -91,10 +100,10 @@ function DetalhesVaga() {
                                 <div style={{ width: '90%' }}>
                                     <p>Parte de povos originários?</p>
                                     <RadioGroup horizontal >
-                                        <ReversedRadioButton value="sim" pointColor="#F8D000">
+                                        <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                             Sim
                                         </ReversedRadioButton>
-                                        <ReversedRadioButton value="nao" pointColor="#F8D000" >
+                                        <ReversedRadioButton value="nao" pointColor="#2ECA72" >
                                             Não
                                         </ReversedRadioButton>
                                     </RadioGroup>

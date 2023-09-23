@@ -1,7 +1,10 @@
 import React from 'react';
 import './DataTable.scss';
+import { useHistory } from 'react-router-dom';
 
-const DataTable = ({ headers, colorFilter, data }) => {
+const DataTable = ({ headers, colorFilter, data, dataFull, route }) => {
+    const history = useHistory();
+
     return (
         <div className='tableContainer'>
             <table className='dataTable'>
@@ -14,7 +17,11 @@ const DataTable = ({ headers, colorFilter, data }) => {
                     {data.map((el, i) => {
                         let filtro = colorFilter !== '' ? true : false
 
-                        return (<tr className={`linha-${i%2}`} key={i}>
+                        return (<tr className={`linha-${i%2}`} key={i} onClick={() => {
+                            history.push(route, {
+                                vaga: dataFull[i]
+                            })
+                        }}>
                             {Object.keys(el).map((key) => {
                                 if (filtro) {
                                     switch (key.toLowerCase()) {

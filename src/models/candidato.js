@@ -18,6 +18,8 @@ const CandidatoSchema = new mongoose.Schema({
     etinia: String,
     renda: String,
     active: Boolean,
+    razaoReprovacao: String,
+    programasRecomendados: [String]
 });
 
 module.exports = mongoose.model('candidato', CandidatoSchema);

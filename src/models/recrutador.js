@@ -9,4 +9,4 @@ const RecrutadorSchema = new mongoose.Schema({
     active: Boolean,
 });
 
-module.exports = mongoose.model('recrutador', RecrutadorSchema);
+module.exports = mongoose.model('recrutadore', RecrutadorSchema);

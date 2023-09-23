@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Slider.scss';
 import cn from "classnames";
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Slider({ vagas: data, external }) {
 
@@ -61,13 +61,12 @@ function Slider({ vagas: data, external }) {
         });
     };
 
-    const handleVagaClick = async () => {
-        history.push("/candidato/vaga")
+    const handleVagaClick = async (vaga) => {
+        history.push("/candidato/vaga", { vaga: vaga, external: external })
     }
 
     return (
         <div className="container">
-            <button onClick={handleVagaClick}>aaa</button>
             <section className="outer-container">
                 <div className="carousel-wrapper">
                     <button
@@ -95,7 +94,7 @@ function Slider({ vagas: data, external }) {
                                     >
                                         <div className="sliderCard-title">{item.titulo}</div>
                                         <div className="sliderCard-title-sub">Nível: {item.level}, {item.local}</div>
-                                        <div className="sliderCard-btn" onClick={handleVagaClick}>Ver Mais</div>
+                                        <div className="sliderCard-btn" onClick={() => handleVagaClick(item)}>Ver Mais</div>
                                     </div>
                                 ))}
                             </div>
