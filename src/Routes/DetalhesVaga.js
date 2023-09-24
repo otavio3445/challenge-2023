@@ -5,12 +5,13 @@ import { loadFull } from "tsparticles";
 import { particlesConf } from '../assets/particlesConfig';
 import Header from '../componentes/header/Header';
 import { RadioGroup, ReversedRadioButton } from 'react-radio-buttons';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
 import axios from 'axios';
 import JSZip from 'jszip'
 
 function DetalhesVaga() {
     const location = useLocation();
+    const history = useHistory();
     const particlesInit = async (main) => {
         await loadFull(main);
     };
@@ -22,6 +23,7 @@ function DetalhesVaga() {
     const [showModal, setshowModal] = useState(true);
     const [nome, setnome] = useState("");
     const [vaga, setvaga] = useState(true);
+    const [cpf, setcpf] = useState("");
 
     const [faixaEtaria, setfaixaEtaria] = useState();
     const [lgbt, setlgbt] = useState();
@@ -32,7 +34,6 @@ function DetalhesVaga() {
     useEffect(() => {
         setvaga(location.state.vaga)
         setnome(location.state.nome)
-        console.log(location)
     }, []);
 
     const downloadZip = (file) => {
@@ -47,12 +48,63 @@ function DetalhesVaga() {
         URL.revokeObjectURL(url);
     }
 
-    const handleDownloadInternal = async () => {
+    const handlerEncerrarVaga = async() => {
         try {
+            const res = await axios.post('/recrutadores/encerrarVaga', {
+                headers: {
+                    'Accept': 'application/json',
+                },
+                data: { cpf, vaga }
+            });
+            console.log(res)
+            setshowModal(!showModal);
+            history.goBack();
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
-
+    const handleDownloadExternal = async () => {
+        try {
             let filtros = {
                 active: true,
+                external: false,
+                idVaga: vaga.idVaga
+            }
+            let zip = new JSZip();
+            let blobs = [];
+            let urls = [];
+
+            const res = await axios.post('/recrutadores/downloadCVs', {
+                headers: {
+                    'Accept': 'application/json',
+                },
+                data: { filtros }
+            });
+            urls = res.data || [];
+            for (const url of urls) {
+                const resUrl = await fetch(url, {mode: 'no-cors'});
+                const blob = await resUrl.blob;
+                blobs.push(blob)
+            }
+
+            blobs.forEach((blob, index) => {
+                zip.file(`cv${index}.pdf`, blob);
+            })
+
+            const zipFIle = await zip.generateAsync({ type: 'blob' });
+            downloadZip(zipFIle);
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const handleDownloadInternal = async () => {
+        try {
+            let filtros = {
+                active: true,
+                external: false,
+                idVaga: vaga.idVaga,
                 renda: renda || { $exists: true },
                 lgbt: lgbt || { $exists: true },
                 pcd: pcd || { $exists: true },
@@ -111,7 +163,7 @@ function DetalhesVaga() {
                         <div className="detalheCandidato">ID: {vaga.idVaga}</div>
                         <br />
                         <h3 className="title reset-padding reset-margin">Candidaturas externas: {vaga.candidaturasExternas}</h3>
-                        <button className="ey-button">Baixar CVs Externos</button>
+                        <button className="ey-button" onClick={handleDownloadExternal}>Baixar CVs Externos</button>
                     </div>
                     <div className="sub50">
                         <h3 className="title reset-padding" style={{ marginTop: '2rem' }}>Candidaturas Internas: {vaga.candidaturasInternas}</h3>
@@ -223,15 +275,17 @@ function DetalhesVaga() {
                         <button className="ey-button" onClick={handleDownloadInternal}>Baixar CVs Internos</button>
                     </div>
                 </div>
-                <div className="btnEncerrar">Encerrar Vaga</div>
+                <div className="btnEncerrar" onClick={() => {
+                    setshowModal(!showModal)
+                }}>Encerrar Vaga</div>
 
                 <div className="modal" hidden={showModal}>
                     <div className="modal-container">
-                        <input type='text' className='ey-input' placeholder='Digite o CPF do Candidato:' />
+                        <input type='text' className='ey-input' placeholder='Digite o CPF do Candidato:' onChange={(e)=> setcpf(e.target.value)}/>
                         <div style={{ display: 'flex', width: '100%' }}>
-                            <button className="ey-button">Confirmar</button>
+                            <button className="ey-button" onClick={handlerEncerrarVaga}>Confirmar</button>
                             <div style={{ margin: '10px' }}></div>
-                            <button className="ey-button" style={{ backgroundColor: '#C30000' }}>Cancelar</button>
+                            <button className="ey-button" style={{ backgroundColor: '#C30000' }} onClick={() => setshowModal(!showModal)}>Cancelar</button>
                         </div>
                     </div>
                 </div>

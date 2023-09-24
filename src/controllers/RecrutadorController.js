@@ -17,9 +17,9 @@ exports.verifyRecrutador = async (req, res) => {
 exports.denyCandidato = async (req, res) => {
     try {
         const { cpf, reason } = req.body.data;
-        await Candidato.updateOne({cpf}, {$set: {razaoReprovacao: reason, active: false}})
+        await Candidato.updateOne({ cpf }, { $set: { razaoReprovacao: reason, active: false } })
 
-        res.json({message: "sucesso"});
+        res.json({ message: "sucesso" });
     } catch (error) {
         res.status(500).json({ message: 'Erro ao procurar recrutador ' });
     }
@@ -27,9 +27,9 @@ exports.denyCandidato = async (req, res) => {
 exports.approveCandidato = async (req, res) => {
     try {
         const { cpf, reason } = req.body.data;
-        await Candidato.updateOne({cpf}, {$set: {programasRecomendados: reason, active: true}},
-        {upsert: true})
-        res.json({message: "sucesso"});
+        await Candidato.updateOne({ cpf }, { $set: { programasRecomendados: reason, active: true } },
+            { upsert: true })
+        res.json({ message: "sucesso" });
     } catch (error) {
         res.status(500).json({ message: 'Erro ao procurar recrutador ' });
     }
@@ -51,19 +51,33 @@ exports.listHomeData = async (req, res) => {
 exports.downloadCVs = async (req, res) => {
     try {
         const { filtros } = req.body.data;
-        let candidaturas = await Candidatura.find( filtros ).lean();
+        let candidaturas = await Candidatura.find(filtros).lean();
         let urls = [];
         let blobs = [];
-        
+
 
         candidaturas.forEach(el => {
             urls.push(el.url)
         });
 
-        
+
         res.send(urls);
     } catch (error) {
         console.log(error)
         res.status(500).json(error);
+    }
+}
+
+exports.encerrarVaga = async (req, res) => {
+    try {
+        const { cpf, vaga } = req.body.data;
+        await Candidato.updateOne({ cpf }, { $set: { active: false } });
+
+        await Vaga.updateOne({ idVaga: vaga.idVaga }, { $set: { active: false, candidato: cpf } })
+
+        await Candidatura.updateOne({cpf, idVaga: vaga.idVaga }, {$set: {active: false, empregado: true}})
+        res.json({ message: "sucesso" });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao procurar recrutador ' });
     }
 }

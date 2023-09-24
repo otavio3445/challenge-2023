@@ -87,7 +87,7 @@ function CandidatarVaga() {
                         <div className="divideContainer-sub-center">
                             <div>
                                 <p>Seu currículo: </p>
-                                <input type="file" name="cv" id="cv" onChange={(event) => {
+                                <input type="file" accept="application/pdf" name="cv" id="cv" onChange={(event) => {
                                     setImageUpload(event.target.files[0]);
                                 }} />
                                 <div>
