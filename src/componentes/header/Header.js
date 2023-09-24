@@ -3,12 +3,12 @@ import './Header.scss';
 import { AiFillHome } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
 
-const Header = ({ rota }) => {
+const Header = ({ rota, state = "" }) => {
     const history = useHistory();
     return (
         <div className='header-main'>
             <div className='homeButton' onClick={() => {
-                history.push(rota)
+                history.push(rota, state)
             }}>
                 <AiFillHome color='#fff' size='35px' />
             </div>

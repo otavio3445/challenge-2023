@@ -66,6 +66,7 @@ function PreencherVagas() {
                     data={vagas}
                     dataFull={vagasFull}
                     route="/recrutador/vaga/detalhes"
+                    nome={nome}
                 />
             </div>
         </div>

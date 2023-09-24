@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.scss';
 import Particles from 'react-tsparticles';
 import { loadFull } from "tsparticles";
@@ -6,6 +6,8 @@ import { particlesConf } from '../assets/particlesConfig';
 import Header from '../componentes/header/Header';
 import { RadioGroup, ReversedRadioButton } from 'react-radio-buttons';
 import { useLocation } from 'react-router';
+import axios from 'axios';
+import JSZip from 'jszip'
 
 function DetalhesVaga() {
     const location = useLocation();
@@ -18,17 +20,76 @@ function DetalhesVaga() {
     };
 
     const [showModal, setshowModal] = useState(true);
+    const [nome, setnome] = useState("");
     const [vaga, setvaga] = useState(true);
 
+    const [faixaEtaria, setfaixaEtaria] = useState();
+    const [lgbt, setlgbt] = useState();
+    const [pcd, setpcd] = useState();
+    const [povos, setpovos] = useState();
+    const [renda, setrenda] = useState();
+
     useEffect(() => {
-      setvaga(location.state.vaga)
-      console.log(location)
-    }, [])
-    
+        setvaga(location.state.vaga)
+        setnome(location.state.nome)
+        console.log(location)
+    }, []);
+
+    const downloadZip = (file) => {
+        const a = document.createElement('a');
+        a.download = 'cvs.zip';
+        const url = URL.createObjectURL(file);
+        a.href = url;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+    }
+
+    const handleDownloadInternal = async () => {
+        try {
+
+
+            let filtros = {
+                active: true,
+                renda: renda || { $exists: true },
+                lgbt: lgbt || { $exists: true },
+                pcd: pcd || { $exists: true },
+                povos: povos || { $exists: true },
+                idade: faixaEtaria || { $exists: true }
+            }
+            let zip = new JSZip();
+            let blobs = [];
+            let urls = [];
+
+            const res = await axios.post('/recrutadores/downloadCVs', {
+                headers: {
+                    'Accept': 'application/json',
+                },
+                data: { filtros }
+            });
+            urls = res.data || [];
+            for (const url of urls) {
+                const resUrl = await fetch(url, {mode: 'no-cors'});
+                const blob = await resUrl.blob;
+                blobs.push(blob)
+            }
+
+            blobs.forEach((blob, index) => {
+                zip.file(`cv${index}.pdf`, blob);
+            })
+
+            const zipFIle = await zip.generateAsync({ type: 'blob' });
+            downloadZip(zipFIle);
+        } catch (error) {
+            console.error(error.response.data)
+        }
+    }
 
     return (
         <div>
-            <Header rota="/recrutador/main" />
+            <Header rota="/recrutador/main" state={{nome}}/>
             <Particles
                 id="tsparticles"
                 init={particlesInit}
@@ -58,7 +119,22 @@ function DetalhesVaga() {
                         <div className="inputContainer">
                             <div className="subContainer">
                                 <p>Faixa Etária:</p>
-                                <select className='ey-input-medium'>
+                                <select className='ey-input-medium' onChange={(e) => {
+                                    switch (e.target.selectedIndex) {
+                                        case 1:
+                                            setfaixaEtaria({ $gte: 18, $lte: 30 })
+                                            break;
+                                        case 2:
+                                            setfaixaEtaria({ $gte: 31, $lte: 40 })
+                                            break;
+                                        case 3:
+                                            setfaixaEtaria({ $gte: 41, $lte: 50 })
+                                            break;
+                                        case 4:
+                                            setfaixaEtaria({ $gte: 51 })
+                                            break;
+                                    }
+                                }}>
                                     <option selected disabled>Selecione a faixa etária</option>
                                     <option>18-30</option>
                                     <option>31-40</option>
@@ -69,7 +145,13 @@ function DetalhesVaga() {
                             <div className="subContainer">
                                 <div style={{ width: '100%' }}>
                                     <p>Parte da comunidade LGBTQIAP+?</p>
-                                    <RadioGroup horizontal >
+                                    <RadioGroup horizontal onChange={(e) => {
+                                        if (e === 'nao') {
+                                            setlgbt(false)
+                                        } else {
+                                            setlgbt(true)
+                                        }
+                                    }}>
                                         <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                             Sim
                                         </ReversedRadioButton>
@@ -85,7 +167,13 @@ function DetalhesVaga() {
                             <div className="subContainer">
                                 <div style={{ width: '90%' }}>
                                     <p>Candidatos PCD?</p>
-                                    <RadioGroup horizontal >
+                                    <RadioGroup horizontal onChange={(e) => {
+                                        if (e === 'nao') {
+                                            setpcd(false)
+                                        } else {
+                                            setpcd(true)
+                                        }
+                                    }}>
                                         <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                             Sim
                                         </ReversedRadioButton>
@@ -99,7 +187,13 @@ function DetalhesVaga() {
                             <div className="subContainer">
                                 <div style={{ width: '90%' }}>
                                     <p>Parte de povos originários?</p>
-                                    <RadioGroup horizontal >
+                                    <RadioGroup horizontal onChange={(e) => {
+                                        if (e === 'nao') {
+                                            setpovos(false)
+                                        } else {
+                                            setpovos(true)
+                                        }
+                                    }}>
                                         <ReversedRadioButton value="sim" pointColor="#2ECA72">
                                             Sim
                                         </ReversedRadioButton>
@@ -113,8 +207,10 @@ function DetalhesVaga() {
                         </div>
                         <div className="inputContainer">
                             <div className="subContainer">
-                            <p>Renda Familiar:</p>
-                                <select className='ey-input-medium'>
+                                <p>Renda Familiar:</p>
+                                <select className='ey-input-medium' onChange={(e) => {
+                                    setrenda(e.target.value)
+                                }}>
                                     <option selected disabled>Selecione a renda familiar</option>
                                     <option>Classe A</option>
                                     <option>Classe B</option>
@@ -124,7 +220,7 @@ function DetalhesVaga() {
                                 </select>
                             </div>
                         </div>
-                        <button className="ey-button">Baixar CVs Internos</button>
+                        <button className="ey-button" onClick={handleDownloadInternal}>Baixar CVs Internos</button>
                     </div>
                 </div>
                 <div className="btnEncerrar">Encerrar Vaga</div>
@@ -135,7 +231,7 @@ function DetalhesVaga() {
                         <div style={{ display: 'flex', width: '100%' }}>
                             <button className="ey-button">Confirmar</button>
                             <div style={{ margin: '10px' }}></div>
-                            <button className="ey-button" style={{backgroundColor: '#C30000'}}>Cancelar</button>
+                            <button className="ey-button" style={{ backgroundColor: '#C30000' }}>Cancelar</button>
                         </div>
                     </div>
                 </div>

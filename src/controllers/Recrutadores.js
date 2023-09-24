@@ -8,6 +8,7 @@ const recrutadoresControllers = require('./RecrutadorController');
 router.post('/verifyRecrutador', recrutadoresControllers.verifyRecrutador);
 router.post('/denyCandidato', recrutadoresControllers.denyCandidato);
 router.post('/approveCandidato', recrutadoresControllers.approveCandidato);
+router.post('/downloadCVs', recrutadoresControllers.downloadCVs);
 router.get('/listHomeData', recrutadoresControllers.listHomeData);
 
 module.exports = router;

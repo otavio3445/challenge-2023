@@ -43,7 +43,7 @@ function MainRecrutador() {
 
     return (
         <div>
-            <Header rota="/recrutador/main" />
+            <Header rota="/recrutador/main" state={{nome}}/>
             <Particles
                 id="tsparticles"
                 init={particlesInit}

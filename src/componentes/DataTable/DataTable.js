@@ -2,7 +2,7 @@ import React from 'react';
 import './DataTable.scss';
 import { useHistory } from 'react-router-dom';
 
-const DataTable = ({ headers, colorFilter, data, dataFull, route }) => {
+const DataTable = ({ headers, colorFilter, data, dataFull, route, nome="" }) => {
     const history = useHistory();
 
     return (
@@ -19,7 +19,8 @@ const DataTable = ({ headers, colorFilter, data, dataFull, route }) => {
 
                         return (<tr className={`linha-${i%2}`} key={i} onClick={() => {
                             history.push(route, {
-                                vaga: dataFull[i]
+                                vaga: dataFull[i],
+                                nome
                             })
                         }}>
                             {Object.keys(el).map((key) => {

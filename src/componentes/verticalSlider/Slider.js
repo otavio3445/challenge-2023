@@ -3,7 +3,7 @@ import './Slider.scss';
 import cn from "classnames";
 import { useHistory } from 'react-router-dom';
 
-function Slider({ vagas: data, external }) {
+function Slider({ vagas: data, external, cpf="" }) {
 
     const history = useHistory();
     const [activeIndex, setActiveIndex] = useState(0);
@@ -62,7 +62,7 @@ function Slider({ vagas: data, external }) {
     };
 
     const handleVagaClick = async (vaga) => {
-        history.push("/candidato/vaga", { vaga: vaga, external: external })
+        history.push("/candidato/vaga", { vaga: vaga, external: external, cpf: cpf })
     }
 
     return (

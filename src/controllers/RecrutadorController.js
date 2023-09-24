@@ -2,6 +2,7 @@ const Recrutador = require('../models/recrutador');
 const Candidato = require('../models/candidato');
 const Vaga = require('../models/vaga');
 const Candidatura = require('../models/candidaturas');
+const JSZip = require('jszip');
 
 exports.verifyRecrutador = async (req, res) => {
     try {
@@ -45,3 +46,24 @@ exports.listHomeData = async (req, res) => {
         res.status(500).json({ message: 'Erro ao listar candidatos' });
     }
 };
+
+
+exports.downloadCVs = async (req, res) => {
+    try {
+        const { filtros } = req.body.data;
+        let candidaturas = await Candidatura.find( filtros ).lean();
+        let urls = [];
+        let blobs = [];
+        
+
+        candidaturas.forEach(el => {
+            urls.push(el.url)
+        });
+
+        
+        res.send(urls);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json(error);
+    }
+}

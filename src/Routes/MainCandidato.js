@@ -6,6 +6,7 @@ import { particlesConf } from '../assets/particlesConfig';
 import Header from '../componentes/header/Header';
 import Slider from '../componentes/verticalSlider/Slider';
 import axios from 'axios';
+import { useLocation } from 'react-router';
 
 function MainCandidato() {
 
@@ -17,9 +18,13 @@ function MainCandidato() {
         console.log('container ok');
     };
 
+    const location = useLocation();
+
     const [vagas, setvagas] = useState([]);
+    const [cpf, setcpf] = useState("");
 
     useEffect(() => {
+        setcpf(location.state.cpf);
         const getVagas = async () => {
             const res = await axios.get('/vagas/listVagas');
             if (res && res.data) {
@@ -41,7 +46,7 @@ function MainCandidato() {
                 options={particlesConf}
             />
             <div className='adjustParticles'>
-                <Slider vagas={vagas} external={false}/>
+                <Slider vagas={vagas} external={false} cpf={cpf}/>
 
                 <div className="instituteInfos">
                     <p>Conheça mais sobre o programa</p>

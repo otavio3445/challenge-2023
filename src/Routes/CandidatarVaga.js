@@ -13,6 +13,7 @@ function CandidatarVaga() {
 
     const location = useLocation();
 
+    const [cpf, setcpf] = useState("");
     const [vaga, setvaga] = useState({});
     const [enableCandidato, setenableCandidato] = useState(false);
     const [imageUpload, setImageUpload] = useState("");
@@ -29,6 +30,8 @@ function CandidatarVaga() {
         let novaVaga = location.state.vaga;
         novaVaga.external = location.state.external;
         setvaga(novaVaga);
+        setcpf(location.state.cpf);
+        console.log(location.state)
     }, [])
 
     const uploadFile = async () => {
@@ -42,12 +45,16 @@ function CandidatarVaga() {
                     headers: {
                         'Accept': 'application/json',
                     },
-                    vaga
+                    data: {
+                        vaga,
+                        cpf,
+                        url
+                    }
                 }).then(res => {
                     if (res && res.data) {
                         setenableCandidato(true)
                     }
-                });
+                }).catch(err => console.error(err.response.data));
             });
         }).catch(err => console.error(err));
     };
