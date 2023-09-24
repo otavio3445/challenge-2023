@@ -185,6 +185,9 @@ function DetalhesVaga() {
                                         case 4:
                                             setfaixaEtaria({ $gte: 51 })
                                             break;
+                                        default:
+                                            setfaixaEtaria({ $exists: true })
+                                            break;
                                     }
                                 }}>
                                     <option selected disabled>Selecione a faixa etária</option>
